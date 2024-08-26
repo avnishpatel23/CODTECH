@@ -42,3 +42,29 @@ Here's an overview of a project to-do list built with HTML, CSS, and JavaScript:
 
 ![Screenshot 2024-08-26 094430](https://github.com/user-attachments/assets/4b6ff088-9fc7-4ea8-b25f-fdfe7a5c9ac4)
 
+ # Task 2: WEATHER FORECAST APP
+
+## Overview-of-projcet
+
+Creating a weather forecast app is a fantastic project to work on, especially for honing your skills in CSS, HTML, and JavaScript. 
+
+
+- HTML:
+- Create a simple layout with sections for:
+1. A search bar where users can input a city name.
+2. A display area for the current weather.
+
+- CSS:
+- Make the app visually appealing using CSS. Use flexbox or grid for layout, and add some colors, fonts, and spacing.
+
+- JavaScript:
+- Use JavaScript to handle the search and fetch data from a weather API like OpenWeatherMap.
+- Parse and display the data for the current weather and the forecast.
+- Key Features:
+- City Search: Users can enter a city name to retrieve the current weather.
+- Weather Details: Display information such as temperature, humidity, wind speed, and weather condition.
+  
+- //Task 2 Output:
+
+![Screenshot 2024-08-26 213151](https://github.com/user-attachments/assets/0057a8a7-6cbd-44ca-a661-9bf02768a6da)
+
