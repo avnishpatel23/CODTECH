@@ -51,6 +51,7 @@ Creating a weather forecast app is a fantastic project to work on, especially fo
 
 - HTML:
 Create a simple layout with sections for:
+
 1. A search bar where users can input a city name.
 2. A display area for the current weather.
 
