@@ -40,4 +40,5 @@ Here's an overview of a project to-do list built with HTML, CSS, and JavaScript:
   
 - //Task 1 Output:
 
-![Screenshot 2024-08-26 094430](https://github.com/user-attachments/assets/8f34a7a8-133c-4db2-9a8c-564e3411707d)
+![Screenshot 2024-08-26 094430](https://github.com/user-attachments/assets/4b6ff088-9fc7-4ea8-b25f-fdfe7a5c9ac4)
+
