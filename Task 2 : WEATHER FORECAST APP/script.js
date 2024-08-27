@@ -1,83 +1,63 @@
-const apiKey = 'REPLACE YOUR OWN API KEY HERE'
-// FOR API KEY
-// Go to the link-  https://home.openweathermap.org/api_keys
-// Sign in
-// find your api key
+const inputBox = document.querySelector('.input-box');
+const searchBtn = document.getElementById('searchBtn');
+const weather_img = document.querySelector('.weather-img');
+const temperature = document.querySelector('.temperature');
+const description = document.querySelector('.description');
+const humidity = document.getElementById('humidity');
+const wind_speed = document.getElementById('wind-speed');
 
-async function fetchWeatherData(city) {
-    try {
-        const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
-        );
+const location_not_found = document.querySelector('.location-not-found');
 
-        if (!response.ok) {
-            throw new Error("Unable to fetch weather data");
-        }
-        const data = await response.json();
-        console.log(data);
-        // console.log(data.main.temp);
-        // console.log(data.name);
-        // console.log(data.wind.speed);
-        // console.log(data.main.humidity);
-        // console.log(data.visibility);
-        updateWeatherUI(data);
-    } catch (error) {
-        console.error(error);
+const weather_body = document.querySelector('.weather-body');
+
+
+async function checkWeather(city){
+    const api_key = "4cd0eee81294c867b4bc4cfc64e998c5";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}`;
+
+    const weather_data = await fetch(`${url}`).then(response => response.json());
+
+
+    if(weather_data.cod === `404`){
+        location_not_found.style.display = "flex";
+        weather_body.style.display = "none";
+        console.log("error");
+        return;
     }
+
+    console.log("run");
+    location_not_found.style.display = "none";
+    weather_body.style.display = "flex";
+    temperature.innerHTML = `${Math.round(weather_data.main.temp - 273.15)}°C`;
+    description.innerHTML = `${weather_data.weather[0].description}`;
+
+    humidity.innerHTML = `${weather_data.main.humidity}%`;
+    wind_speed.innerHTML = `${weather_data.wind.speed}Km/H`;
+
+
+    switch(weather_data.weather[0].main){
+        case 'Clouds':
+            weather_img.src = "/assets/cloud.png";
+            break;
+        case 'Clear':
+            weather_img.src = "/assets/clear.png";
+            break;
+        case 'Rain':
+            weather_img.src = "/assets/rain.png";
+            break;
+        case 'Mist':
+            weather_img.src = "/assets/mist.png";
+            break;
+        case 'Snow':
+            weather_img.src = "/assets/snow.png";
+            break;
+
+    }
+
+    console.log(weather_data);
 }
 
-const cityElement = document.querySelector(".city");
-const temperature = document.querySelector(".temp");
-const windSpeed = document.querySelector(".wind-speed");
-const humidity = document.querySelector(".humidity");
-const visibility = document.querySelector(".visibility-distance");
 
-const descriptionText = document.querySelector(".description-text");
-const date = document.querySelector(".date");
-const descriptionIcon = document.querySelector(".description i");
-
-// fetchWeatherData();
-
-function updateWeatherUI(data) {
-    cityElement.textContent = data.name;
-    temperature.textContent = `${Math.round(data.main.temp)}`;
-    windSpeed.textContent = `${data.wind.speed} km/h`;
-    humidity.textContent = `${data.main.humidity}%`;
-    visibility.textContent = `${data.visibility / 1000} km`;
-    descriptionText.textContent = data.weather[0].description;
-
-    const currentDate = new Date();
-    date.textContent = currentDate.toDateString();
-    const weatherIconName = getWeatherIconName(data.weather[0].main);
-    descriptionIcon.innerHTML = `<i class="material-icons">${weatherIconName}</i>`;
-}
-
-const formElement = document.querySelector(".search-form");
-const inputElement = document.querySelector(".city-input");
-
-formElement.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const city = inputElement.value;
-    if (city !== "") {
-        fetchWeatherData(city);
-        inputElement.value = "";
-    }
+searchBtn.addEventListener('click', ()=>{
+    checkWeather(inputBox.value);
 });
-
-function getWeatherIconName(weatherCondition) {
-    const iconMap = {
-        Clear: "wb_sunny",
-        Clouds: "wb_cloudy",
-        Rain: "umbrella",
-        Thunderstorm: "flash_on",
-        Drizzle: "grain",
-        Snow: "ac_unit",
-        Mist: "cloud",
-        Smoke: "cloud",
-        Haze: "cloud",
-        Fog: "cloud",
-    };
-
-    return iconMap[weatherCondition] || "help";
-}
